@@ -1,0 +1,3 @@
+INSERT INTO `photos`(`id`, `title`, `description`, `url`, `visible`) VALUES ('1','Micheal e Pam','due ragazzi in una posa informale','https://images.pexels.com/photos/5325791/pexels-photo-5325791.jpeg?auto=compress&cs=tinysrgb&w=1600',TRUE);
+INSERT INTO `photos`(`id`, `title`, `description`, `url`, `visible`) VALUES ('2','Pontile','pontile con lago, foto senza filtri','https://images.pexels.com/photos/206359/pexels-photo-206359.jpeg?auto=compress&cs=tinysrgb&w=1600',TRUE);
+INSERT INTO `photos`(`id`, `title`, `description`, `url`, `visible`) VALUES ('3','Jack e Anna','due fotografi mentre valutano i loro scatti','https://images.pexels.com/photos/6271528/pexels-photo-6271528.jpeg?auto=compress&cs=tinysrgb&w=1600',TRUE);

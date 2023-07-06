@@ -1,20 +1,32 @@
 package org.lessons.springilmiofotoalbum.model;
 
+import jakarta.persistence.*;
+
 import java.util.List;
 
+@Entity
+@Table(name = "photos")
 public class Photo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(nullable = false)
     private String title;
     private String description;
     private String url;
     private boolean visible;
-    private List<String> categories;
 
-    public Photo(String title, String description, String url, boolean visible, List<String> categories) {
-        this.title = title;
-        this.description = description;
-        this.url = url;
-        this.visible = visible;
-        this.categories = categories;
+
+    public Photo() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -47,13 +59,5 @@ public class Photo {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
-    }
-
-    public List<String> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
     }
 }
