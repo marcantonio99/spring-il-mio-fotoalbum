@@ -6,19 +6,9 @@
 <body>
 <h1>Photo Gallery</h1>
 <hr>
-<table>
-    <thead>
-    <tr>
-        <th>Titolo</th>
-        <th>Foto</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="photo : ${photoList}">
-        <td th:text="${photo.title}"></td>
-        <img th:src="${photo.url}" style="max-width: 200px; max-height: 200px;"></img>
-    </tr>
-    </tbody>
-</table>
+<div th:each="photo : ${photoList}" class="photo-container">
+    <p th:text="${photo.title}"></p>
+    <img th:src="${photo.url}">
+</div>
 </body>
 </html>

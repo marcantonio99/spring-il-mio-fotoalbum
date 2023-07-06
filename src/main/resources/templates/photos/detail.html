@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{/fragments/resources :: head(title='Dettagli')}"></th:block>
+</head>
+<body>
+<div class="container" th:object="${photo}">
+    <h1 th:text="*{title}"></h1>
+    <img th:src="*{url}">
+    <p th:text="*{description}"></p>
+</div>
+</body>
+</html>
