@@ -4,10 +4,11 @@
     <th:block th:replace="~{/fragments/resources :: head(title='Dettagli')}"></th:block>
 </head>
 <body>
-<div class="container" th:object="${photo}">
+<div class="container-detail" th:object="${photo}">
     <h1 th:text="*{title}"></h1>
     <img th:src="*{url}">
     <p th:text="*{description}"></p>
+    <a th:href="@{/photos}" class="btn btn-primary mt-3">Torna al rullino</a>
 </div>
 </body>
 </html>

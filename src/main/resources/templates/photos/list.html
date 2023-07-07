@@ -6,9 +6,35 @@
 <body>
 <h1>Photo Gallery</h1>
 <hr>
-<div th:each="photo : ${photoList}" class="photo-container">
+
+<form th:action="@{/photos}" method="GET" class="w-50">
+    <div class="input-group">
+        <input type="search" class="form-control" placeholder="Cerca photo per nome..."
+               name="keyword" th:value="${search}">
+        <button class="btn btn-secondary" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </div>
+</form>
+
+<!-- <div th:each="photo : ${photoList}" class="photo-container" th:if="${photoList.size() > 0}">
     <p th:text="${photo.title}"></p>
-    <img th:src="${photo.url}">
+    <a th:href="@{|/photos/${photo.id}|}">
+        <img th:src="${photo.url}">
+    </a>
+</div> -->
+
+<div th:each="photo : ${photoList}" class="row row-cols-1 row-cols-md-3 g-4, photo-container">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 th:text="${photo.title}" class="card-title"></h5>
+            </div>
+            <a th:href="@{|/photos/${photo.id}|}">
+                <img th:src="${photo.url}" class="card-img-top" alt="...">
+            </a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

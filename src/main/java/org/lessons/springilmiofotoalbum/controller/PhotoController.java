@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -22,8 +23,14 @@ public class PhotoController {
     private PhotoRepository photoRepository;
 
     @GetMapping
-    public String list(Model model){
-        List<Photo> photos = photoRepository.findAll();
+    public String list(@RequestParam(name = "keyword", required = false) String searchString, Model model){
+        List<Photo> photos;
+
+        if (searchString == null || searchString.isBlank()){
+            photos = photoRepository.findAll();
+        }else {
+            photos = photoRepository.findAllByTitleContainingIgnoreCase(searchString);
+        }
 
         model.addAttribute("photoList", photos);
 
@@ -41,5 +48,10 @@ public class PhotoController {
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/create")
+    public String create(){
+        return "/photos/create";
     }
 }
