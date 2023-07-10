@@ -1,6 +1,7 @@
 package org.lessons.springilmiofotoalbum.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
@@ -11,9 +12,11 @@ public class Photo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank(message = "Title non può essere nullo")
     @Column(nullable = false)
     private String title;
     private String description;
+    @NotBlank
     private String url;
     private boolean visible;
 

@@ -4,8 +4,11 @@
     <th:block th:replace="~{/fragments/resources :: head(title='PhotoGallery')}"></th:block>
 </head>
 <body>
-<h1>Photo Gallery</h1>
-<hr>
+<div class="container-navbar">
+    <h1>Photo Gallery</h1>
+    <a th:href="@{/photos/create}" class="btn btn-primary mt-3 btn-create">Aggiungi una foto</a>
+    <hr>
+</div>
 
 <form th:action="@{/photos}" method="GET" class="w-50">
     <div class="input-group">

@@ -1,16 +1,17 @@
 package org.lessons.springilmiofotoalbum.controller;
 
+import jakarta.validation.Valid;
 import org.lessons.springilmiofotoalbum.model.Photo;
 import org.lessons.springilmiofotoalbum.repository.PhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +52,51 @@ public class PhotoController {
     }
 
     @GetMapping("/create")
-    public String create(){
-        return "/photos/create";
+    public String create(Model model){
+        model.addAttribute("photo", new Photo());
+        return "/photos/create_edit";
+    }
+
+    @PostMapping("/create")
+    public String store(@Valid @ModelAttribute("photo") Photo formPhoto, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return "/photos/create_edit";
+        }
+
+        photoRepository.save(formPhoto);
+
+        return "redirect:/photos";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+
+        Photo photo = getPhotoById(id);
+
+        model.addAttribute("photo", photo);
+
+        return "/photo/create_edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("photo") Photo formPhoto, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        Photo photo = getPhotoById(id);
+
+        formPhoto.setId(photo.getId());
+
+        photoRepository.save(formPhoto);
+
+        return "redirect:/photo";
+    }
+
+    private Photo getPhotoById(Integer id) {
+
+        Optional<Photo> photoId = photoRepository.findById(id);
+
+        if (photoId.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Photo inesistente");
+        }
+        return photoId.get();
     }
 }
